@@ -260,9 +260,8 @@ namespace ArtPulseAPI.Controllers
                 Cost = product.Cost,
                 Name = product.Name,
                 Details = product.Details,
-                SellerId = product.Seller.Id  // Assuming Seller has an Id property
+                SellerId = product.SellerId  // Assuming Seller has an Id property
             };
-
             return Ok(productDTO);
         }
     }

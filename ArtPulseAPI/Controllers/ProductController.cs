@@ -63,7 +63,7 @@ namespace ArtPulseAPI.Controllers
         }
 
         //Add product
-        [HttpPost("AddProduct")]
+        [HttpPost("addProduct")]
         public async Task<IActionResult> AddProduct(ProductDTO productDTO)
         {
             try
@@ -103,7 +103,7 @@ namespace ArtPulseAPI.Controllers
         }
 
         //Update product
-        [HttpPut("UpdateProduct/{id}")]
+        [HttpPut("updateProduct/{id}")]
         public async Task<IActionResult> UpdateProduct(int id, ProductDTO productDTO)
         {
             try
@@ -146,7 +146,7 @@ namespace ArtPulseAPI.Controllers
         }
 
         //Delete product
-        [HttpDelete("DeleteProduct/{id}")]
+        [HttpDelete("deleteProduct/{id}")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
             try
@@ -170,7 +170,7 @@ namespace ArtPulseAPI.Controllers
         }
 
         //Get Products by Ascending order
-        [HttpGet("ProductsPriceAsc")]
+        [HttpGet("productsPriceAsc")]
         public async Task<IActionResult> GetProductsPriceAsc()
         {
             try
@@ -195,7 +195,7 @@ namespace ArtPulseAPI.Controllers
         }
 
         //Get Products by Descanding order
-        [HttpGet("ProductsPriceDesc")]
+        [HttpGet("productsPriceDesc")]
         public async Task<IActionResult> GetProductsPriceDesc()
         {
             try
@@ -220,7 +220,7 @@ namespace ArtPulseAPI.Controllers
         }
 
         //Get top 10 products
-        [HttpGet("BestProducts")]
+        [HttpGet("bestProducts")]
         public async Task<IActionResult> GetBestProducts()
         {
             try

@@ -17,9 +17,10 @@ namespace ArtPulseAPI.Models
         public decimal Cost { get; set; }
         public string Name { get; set; }
         public string Details { get; set; }
+        public int SellerId { get; set; }
         public Seller Seller { get; set; }
-        public ICollection<Customer>? CustomersWithThisProductInShoppingCart { get; set; }
-        public ICollection<Offer>? OffertsWithThisProduct { get; set; } 
+        public ICollection<CustomerProduct_ShoppingCart>? ShoppingCartsContainingProduct { get; set; }
+        public ICollection<OfferProduct>? OffersWithThisProduct { get; set; } 
     }
 
     public enum Category : ushort

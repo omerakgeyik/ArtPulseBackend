@@ -11,6 +11,6 @@ namespace ArtPulseAPI.Models
         public int Id { get; set; }
         public string OfferName { get; set; }
         public string OfferDescription { get; set; }
-        public ICollection<Product> OfferedProducts { get; set; }
+        public ICollection<OfferProduct> OfferedProducts { get; set; }
     }
 }

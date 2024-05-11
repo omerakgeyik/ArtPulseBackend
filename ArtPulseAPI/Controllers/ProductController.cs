@@ -83,7 +83,7 @@ namespace ArtPulseAPI.Controllers
                 var product = new Product
                 {
                     Amount = productDTO.Amount,
-                    Rating = productDTO.RatingScaledBy10,
+                    Rating = productDTO.Rating,
                     Category = (Category)Enum.Parse(typeof(Category), productDTO.Category),
                     Cost = productDTO.Cost,
                     Name = productDTO.Name,
@@ -128,7 +128,7 @@ namespace ArtPulseAPI.Controllers
                 }
 
                 product.Amount = productDTO.Amount;
-                product.Rating = productDTO.RatingScaledBy10;
+                product.Rating = productDTO.Rating;
                 product.Category = (Category)Enum.Parse(typeof(Category), productDTO.Category);
                 product.Cost = productDTO.Cost;
                 product.Name = productDTO.Name;
@@ -255,7 +255,7 @@ namespace ArtPulseAPI.Controllers
             {
                 Id = product.Id,
                 Amount = product.Amount,
-                RatingScaledBy10 = product.Rating,
+                Rating = product.Rating,
                 Category = Enum.GetName(typeof(Category), product.Category), // Convert enum to string
                 Cost = product.Cost,
                 Name = product.Name,

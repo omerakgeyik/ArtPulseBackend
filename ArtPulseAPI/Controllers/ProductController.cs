@@ -83,7 +83,7 @@ namespace ArtPulseAPI.Controllers
                 var product = new Product
                 {
                     Amount = productDTO.Amount,
-                    RatingScaledBy10 = productDTO.RatingScaledBy10,
+                    Rating = productDTO.RatingScaledBy10,
                     Category = (Category)Enum.Parse(typeof(Category), productDTO.Category),
                     Cost = productDTO.Cost,
                     Name = productDTO.Name,
@@ -128,7 +128,7 @@ namespace ArtPulseAPI.Controllers
                 }
 
                 product.Amount = productDTO.Amount;
-                product.RatingScaledBy10 = productDTO.RatingScaledBy10;
+                product.Rating = productDTO.RatingScaledBy10;
                 product.Category = (Category)Enum.Parse(typeof(Category), productDTO.Category);
                 product.Cost = productDTO.Cost;
                 product.Name = productDTO.Name;
@@ -226,7 +226,7 @@ namespace ArtPulseAPI.Controllers
             try
             {
                 var bestProducts = await _dataContext.Products
-                    .OrderByDescending(p => p.RatingScaledBy10)
+                    .OrderByDescending(p => p.Rating)
                     .Take(10)
                     .Select(p => ProductToDTO(p))
                     .ToListAsync();
@@ -255,7 +255,7 @@ namespace ArtPulseAPI.Controllers
             {
                 Id = product.Id,
                 Amount = product.Amount,
-                RatingScaledBy10 = product.RatingScaledBy10,
+                RatingScaledBy10 = product.Rating,
                 Category = Enum.GetName(typeof(Category), product.Category), // Convert enum to string
                 Cost = product.Cost,
                 Name = product.Name,

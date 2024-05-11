@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ArtPulseAPI.Models
 {
-    internal class Offer
+    public class Offer
     {
         public int Id { get; set; }
         public string OfferName { get; set; }

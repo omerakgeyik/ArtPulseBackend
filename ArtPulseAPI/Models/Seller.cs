@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ArtPulseAPI.Models
 {
-    internal class Seller
+    public class Seller
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
@@ -14,6 +14,6 @@ namespace ArtPulseAPI.Models
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public string Address { get; set; }
-        public ICollection<Product> ProductsBeingSold { get; set; }
+        public ICollection<Product>? ProductsBeingSold { get; set; }
     }
 }

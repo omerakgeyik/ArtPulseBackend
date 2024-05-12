@@ -1,4 +1,5 @@
 ﻿using ArtPulseAPI.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace ArtPulseAPI.DTO
 {
@@ -6,6 +7,7 @@ namespace ArtPulseAPI.DTO
     {
         public int Id { get; set; }
         public int Amount { get; set; }
+        [Range(0, 5)]
         public float Rating { get; set; }
         public string Category { get; set; }
         public decimal Cost { get; set; }

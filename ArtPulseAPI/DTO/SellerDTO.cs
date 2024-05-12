@@ -1,4 +1,6 @@
-﻿namespace ArtPulseAPI.DTO
+﻿using ArtPulseAPI.Models;
+
+namespace ArtPulseAPI.DTO
 {
     public class SellerDTO
     {

@@ -66,6 +66,63 @@ namespace ArtPulseAPI.Controllers
             }
         }
 
+        //Get a seller by id
+        [HttpGet("getSellerById/{id}")]
+        public async Task<IActionResult> GetSellerById(int id)
+        {
+            try
+            {
+                var seller = await _context.Sellers.FindAsync(id);
+
+                if (seller == null)
+                {
+                    return NotFound("Seller not found.");
+                }
+
+                var sellerDTO = SellerToDTO(seller);
+
+                return Ok(sellerDTO);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        //Update Seller
+        [HttpPut("updateSeller/{id}")]
+        public async Task<IActionResult> UpdateSeller(int id, SellerDTO sellerDTO)
+        {
+            try
+            {
+                if (id != sellerDTO.Id)
+                {
+                    return BadRequest("Seller ID mismatch.");
+                }
+
+                var seller = await _context.Sellers.FindAsync(id);
+
+                if (seller == null)
+                {
+                    return NotFound("Seller not found.");
+                }
+
+                seller.FirstName = sellerDTO.FirstName;
+                seller.LastName = sellerDTO.LastName;
+                seller.Email = sellerDTO.Email;
+                seller.PhoneNumber = sellerDTO.PhoneNumber;
+                seller.Address = sellerDTO.Address;
+
+                await _context.SaveChangesAsync();
+
+                return Ok("Seller updated successfully.");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
         //Deleting Seller
         [HttpDelete("deleteSeller/{id}")]
         public async Task<IActionResult> DeleteSeller(int id)

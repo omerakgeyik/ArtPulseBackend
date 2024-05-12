@@ -52,7 +52,7 @@ namespace ArtPulseAPI.Controllers
                     return NotFound("Product not found.");
                 }
 
-                var productDTO = await ProductToDTO(product);
+                var productDTO =  ProductToDTO(product);
 
                 return Ok(productDTO);
             }
@@ -244,25 +244,22 @@ namespace ArtPulseAPI.Controllers
             }
         }
 
-        private async Task<IActionResult> ProductToDTO(Product product)
+        private ProductDTO ProductToDTO(Product product)
         {
-            if (product == null)
-            {
-                return NotFound("Product not found.");
-            }
+            
 
             var productDTO = new ProductDTO
             {
                 Id = product.Id,
                 Amount = product.Amount,
-                Rating = product.Rating,
+                Rating = product.Rating / 10.0f,
                 Category = Enum.GetName(typeof(Category), product.Category), // Convert enum to string
                 Cost = product.Cost,
                 Name = product.Name,
                 Details = product.Details,
                 SellerId = product.SellerId  // Assuming Seller has an Id property
             };
-            return Ok(productDTO);
+            return productDTO;
         }
     }
 }

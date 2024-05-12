@@ -3,6 +3,7 @@ using ArtPulseAPI.DTO;
 using ArtPulseAPI.Data;
 using ArtPulseAPI.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 namespace ArtPulseAPI.Controllers
 {
     [Route("api/[controller]")]
@@ -40,6 +41,7 @@ namespace ArtPulseAPI.Controllers
         }
 
         //Get product by id
+        //[Authorize] for authhorize
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProductByID(int id)
         {

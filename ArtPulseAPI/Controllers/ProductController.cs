@@ -172,13 +172,16 @@ namespace ArtPulseAPI.Controllers
         }
 
         //Get Products by Ascending order
-        [HttpGet("productsPriceAsc")]
-        public async Task<IActionResult> GetProductsPriceAsc()
+        [HttpGet("productsPriceAsc/{start}/{count}")]
+        public async Task<IActionResult> GetProductsPriceAsc(int start, int count)
         {
             try
             {
+                Range range = new Range(start, count);
                 var products = await _dataContext.Products
                     .OrderBy(p => p.Cost)
+                    .Skip(start)
+                    .Take(count)
                     .ToListAsync();
 
                 if (products.Count == 0)
@@ -197,14 +200,16 @@ namespace ArtPulseAPI.Controllers
         }
 
         //Get Products by Descanding order
-        [HttpGet("productsPriceDesc/{takeCount}")]
-        public async Task<IActionResult> GetProductsPriceDesc(int takeCount)
+        [HttpGet("productsPriceDesc/{start}/{count}")]
+        public async Task<IActionResult> GetProductsPriceDesc(int start, int count)
         {
             try
             {
+                Range range = new Range(start, count);
                 var products = await _dataContext.Products
                     .OrderByDescending(p => p.Cost)
-                    .Take(takeCount)
+                    .Skip(start)
+                    .Take(count)
                     .ToListAsync();
 
                 if (products.Count == 0)
@@ -223,14 +228,16 @@ namespace ArtPulseAPI.Controllers
         }
 
         //Get top 10 products
-        [HttpGet("bestProducts/{takeCount}")]
-        public async Task<IActionResult> GetBestProducts(int takeCount)
+        [HttpGet("bestProducts/{start}/{count}")]
+        public async Task<IActionResult> GetBestProducts(int start, int count)
         {
             try
             {
+                Range range = new Range(start, count);
                 var bestProducts = await _dataContext.Products
                     .OrderByDescending(p => p.Rating)
-                    .Take(10)
+                    .Skip(start)
+                    .Take(count)
                     .Select(p => ProductToDTO(p))
                     .ToListAsync();
 

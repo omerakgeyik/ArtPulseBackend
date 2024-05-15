@@ -20,7 +20,7 @@ builder.Services.AddCors(options =>
     });
 });
 
-builder.Services.AddDbContext<DataContext>(o => o.UseNpgsql("Host=localhost; Database=artpulse; Username=postgres; Password=1234"));
+builder.Services.AddDbContext<DataContext>(o => o.UseNpgsql("Host=localhost; Database=artpulse; Username=postgres; Password=12345"));
 // For Identity
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<DataContext>()

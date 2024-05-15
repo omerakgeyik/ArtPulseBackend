@@ -197,13 +197,14 @@ namespace ArtPulseAPI.Controllers
         }
 
         //Get Products by Descanding order
-        [HttpGet("productsPriceDesc")]
-        public async Task<IActionResult> GetProductsPriceDesc()
+        [HttpGet("productsPriceDesc/{takeCount}")]
+        public async Task<IActionResult> GetProductsPriceDesc(int takeCount)
         {
             try
             {
                 var products = await _dataContext.Products
                     .OrderByDescending(p => p.Cost)
+                    .Take(takeCount)
                     .ToListAsync();
 
                 if (products.Count == 0)
@@ -222,8 +223,8 @@ namespace ArtPulseAPI.Controllers
         }
 
         //Get top 10 products
-        [HttpGet("bestProducts")]
-        public async Task<IActionResult> GetBestProducts()
+        [HttpGet("bestProducts/{takeCount}")]
+        public async Task<IActionResult> GetBestProducts(int takeCount)
         {
             try
             {
@@ -248,8 +249,6 @@ namespace ArtPulseAPI.Controllers
 
         private ProductDTO ProductToDTO(Product product)
         {
-            
-
             var productDTO = new ProductDTO
             {
                 Id = product.Id,

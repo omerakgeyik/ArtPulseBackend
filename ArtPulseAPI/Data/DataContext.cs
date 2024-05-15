@@ -13,7 +13,7 @@ namespace ArtPulseAPI.Data
         internal DbSet<Offer> Offers { get; set; }
         internal DbSet<Product> Products { get; set; }
         internal DbSet<Seller> Sellers { get; set; }
-
+        internal DbSet<Review> Reviews { get; set; }
 
 
 

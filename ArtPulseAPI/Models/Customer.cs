@@ -4,6 +4,7 @@ namespace ArtPulseAPI.Models
 {
     public class Customer
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

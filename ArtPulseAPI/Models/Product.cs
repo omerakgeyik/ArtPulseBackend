@@ -22,7 +22,8 @@ namespace ArtPulseAPI.Models
         public int SellerId { get; set; }
         public Seller Seller { get; set; }
         public ICollection<CustomerProduct_ShoppingCart>? ShoppingCartsContainingProduct { get; set; }
-        public ICollection<OfferProduct>? OffersWithThisProduct { get; set; } 
+        public ICollection<OfferProduct>? OffersWithThisProduct { get; set; }
+        public byte[]? Image { get; set; }
     }
 
     public enum Category : ushort

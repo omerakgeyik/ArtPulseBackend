@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.OpenApi.Models;
+using ArtPulseAPI.Utilities;
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
@@ -20,7 +22,7 @@ builder.Services.AddCors(options =>
     });
 });
 
-builder.Services.AddDbContext<DataContext>(o => o.UseNpgsql("Host=localhost; Database=artpulse; Username=postgres; Password=12345"));
+builder.Services.AddDbContext<DataContext>(o => o.UseNpgsql("Host=localhost; Database=artpulse; Username=postgres; Password=1234"));
 // For Identity
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<DataContext>()
@@ -51,7 +53,12 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(
+    c =>
+    {
+        c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+        c.SchemaFilter<SwaggerIgnoreFilter>(); // Register the SwaggerIgnore filter
+    });
 
 var app = builder.Build();
 

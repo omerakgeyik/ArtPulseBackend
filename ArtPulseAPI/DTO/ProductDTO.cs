@@ -1,4 +1,5 @@
 ﻿using ArtPulseAPI.Models;
+using ArtPulseAPI.Utilities;
 using System.ComponentModel.DataAnnotations;
 
 namespace ArtPulseAPI.DTO
@@ -14,5 +15,8 @@ namespace ArtPulseAPI.DTO
         public string Name { get; set; }
         public string Details { get; set; }
         public int SellerId { get; set; }
+        public IFormFile Image { get; set; }
+        [SwaggerIgnore]
+        public string? ImageBase64 { get; set; }
     }
 }

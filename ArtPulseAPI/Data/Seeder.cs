@@ -68,6 +68,7 @@ namespace ArtPulseAPI.Data
                     Rating = 4,
                     ShoppingCartsContainingProduct = null,
                     OffersWithThisProduct = null,
+                    Image = new byte[0],
                 });
             }
         }

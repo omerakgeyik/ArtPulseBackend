@@ -54,7 +54,7 @@ namespace ArtPulseAPI.Controllers
                     return NotFound("Product not found.");
                 }
 
-                var productDTO =  ProductToDTO(product);
+                var productDTO = ProductToDTO(product);
 
                 return Ok(productDTO);
             }
@@ -66,7 +66,7 @@ namespace ArtPulseAPI.Controllers
 
         //Add product
         [HttpPost("addProduct")]
-        public async Task<IActionResult> AddProduct(ProductDTO productDTO)
+        public async Task<IActionResult> AddProduct([FromForm] ProductDTO productDTO)
         {
             try
             {
@@ -82,6 +82,17 @@ namespace ArtPulseAPI.Controllers
                     return BadRequest("Seller not found.");
                 }
 
+                byte[] imageData = null;
+
+                if (productDTO.Image != null && productDTO.Image.Length > 0)
+                {
+                    using (var ms = new MemoryStream())
+                    {
+                        await productDTO.Image.CopyToAsync(ms);
+                        imageData = ms.ToArray();
+                    }
+                }
+
                 var product = new Product
                 {
                     Amount = productDTO.Amount,
@@ -90,7 +101,8 @@ namespace ArtPulseAPI.Controllers
                     Cost = productDTO.Cost,
                     Name = productDTO.Name,
                     Details = productDTO.Details,
-                    Seller = seller
+                    Seller = seller,
+                    Image = imageData
                 };
 
                 _dataContext.Products.Add(product);
@@ -106,7 +118,7 @@ namespace ArtPulseAPI.Controllers
 
         //Update product
         [HttpPut("updateProduct/{id}")]
-        public async Task<IActionResult> UpdateProduct(int id, ProductDTO productDTO)
+        public async Task<IActionResult> UpdateProduct(int id, [FromForm] ProductDTO productDTO)
         {
             try
             {
@@ -129,6 +141,17 @@ namespace ArtPulseAPI.Controllers
                     return BadRequest("Seller not found.");
                 }
 
+                byte[] imageData = product.Image;
+
+                if (productDTO.Image != null && productDTO.Image.Length > 0)
+                {
+                    using (var ms = new MemoryStream())
+                    {
+                        await productDTO.Image.CopyToAsync(ms);
+                        imageData = ms.ToArray();
+                    }
+                }
+
                 product.Amount = productDTO.Amount;
                 product.Rating = productDTO.Rating;
                 product.Category = (Category)Enum.Parse(typeof(Category), productDTO.Category);
@@ -136,6 +159,7 @@ namespace ArtPulseAPI.Controllers
                 product.Name = productDTO.Name;
                 product.Details = productDTO.Details;
                 product.Seller = seller;
+                product.Image = imageData; 
 
                 await _dataContext.SaveChangesAsync();
 
@@ -261,11 +285,12 @@ namespace ArtPulseAPI.Controllers
                 Id = product.Id,
                 Amount = product.Amount,
                 Rating = product.Rating / 10.0f,
-                Category = Enum.GetName(typeof(Category), product.Category), // Convert enum to string
+                Category = Enum.GetName(typeof(Category), product.Category),
                 Cost = product.Cost,
                 Name = product.Name,
                 Details = product.Details,
-                SellerId = product.SellerId  // Assuming Seller has an Id property
+                SellerId = product.SellerId,
+                ImageBase64 = product.Image != null ? Convert.ToBase64String(product.Image) : null
             };
             return productDTO;
         }

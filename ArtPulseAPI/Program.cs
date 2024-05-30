@@ -22,11 +22,12 @@ builder.Services.AddCors(options =>
     });
 });
 
-builder.Services.AddDbContext<DataContext>(o => o.UseNpgsql("Host=localhost; Database=artpulse; Username=postgres; Password=1234"));
+builder.Services.AddDbContext<DataContext>(o => o.UseNpgsql(builder.Configuration["ConnectionStrings:Deployed"]));
 // For Identity
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<DataContext>()
     .AddDefaultTokenProviders();
+/*
 // Adding Authentication
 builder.Services.AddAuthentication(options =>
 {
@@ -48,7 +49,7 @@ builder.Services.AddAuthentication(options =>
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]))
     };
 });
-
+*/
 // Add services to the container.
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
